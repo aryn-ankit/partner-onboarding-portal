@@ -3,8 +3,8 @@
 A modern, high-fidelity Partner Onboarding Portal MVP built for Servify Operations and Partner Success teams. It simplifies the configuration of partner details, device protection programs, and developer API credentials into a clean, wizard-driven web workflow.
 
 ## 🔗 Live Demo URLs
-- **Public Tunnel (Serveo)**: [https://3f0b2280d3d4d777-106-222-251-79.serveousercontent.com](https://3f0b2280d3d4d777-106-222-251-79.serveousercontent.com) (Exposing local port `8080`)
-- **Public Tunnel (Localtunnel)**: [https://slimy-planes-occur.loca.lt](https://slimy-planes-occur.loca.lt)
+- **Official Host (GitHub Pages)**: [https://aryn-ankit.github.io/partner-onboarding-portal/](https://aryn-ankit.github.io/partner-onboarding-portal/)
+- **Local Proxy (Localtunnel)**: [https://slimy-planes-occur.loca.lt](https://slimy-planes-occur.loca.lt)
 
 ---
 

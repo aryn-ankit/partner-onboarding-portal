@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servify Partner Onboarding Portal</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons (CDN) for modern, clean iconography -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="void-theme">
+  
+  <!-- Radial Glow/Ambient Backgrounds -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <i data-lucide="shield-check" class="brand-icon"></i>
+        </div>
+        <div class="brand-text">
+          <h2>SERVIFY</h2>
+          <span>OPS PORTAL</span>
+        </div>
+      </div>
+      
+      <nav class="sidebar-menu">
+        <a href="#dashboard" class="menu-item active" data-view="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#partners" class="menu-item" data-view="partners">
+          <i data-lucide="users"></i>
+          <span>Partners</span>
+        </a>
+        <a href="#programs" class="menu-item" data-view="programs">
+          <i data-lucide="file-text"></i>
+          <span>Programs</span>
+        </a>
+        <a href="#settings" class="menu-item" data-view="settings">
+          <i data-lucide="settings"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-user">
+        <div class="user-avatar">
+          <span id="user-initials">AS</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name" id="display-user-name">Ankit Sharma</span>
+          <span class="user-role" id="display-user-role">Onboarding Specialist</span>
+        </div>
+        <div class="role-badge-container">
+          <button id="quick-role-toggle" class="role-toggle-btn" title="Quick switch role for demo">
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top header bar -->
+      <header class="top-header">
+        <div class="header-title">
+          <h1 id="page-title">Dashboard</h1>
+          <p id="page-subtitle" class="text-muted">Overview of your partner pipeline and program statuses</p>
+        </div>
+        
+        <div class="header-actions">
+          <!-- Live role badge -->
+          <div class="role-pill" id="header-role-pill">
+            <span class="pulse-indicator"></span>
+            <span id="role-pill-text">Specialist View</span>
+          </div>
+          
+          <button class="btn btn-primary" id="btn-start-onboarding">
+            <i data-lucide="plus"></i>
+            <span>Onboard New Partner</span>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Content Container -->
+      <div class="content-body">
+        
+        <!-- ================= VIEW: DASHBOARD ================= -->
+        <section id="view-dashboard" class="content-view active">
+          <!-- Metrics grid -->
+          <div class="metrics-grid">
+            <div class="metric-card" id="metric-total">
+              <div class="metric-icon bg-indigo-soft">
+                <i data-lucide="building-2" class="text-indigo"></i>
+              </div>
+              <div class="metric-data">
+                <span class="metric-label">Total Partners</span>
+                <h3 class="metric-value" id="val-total-partners">12</h3>
+              </div>
+            </div>
+            
+            <div class="metric-card" id="metric-active">
+              <div class="metric-icon bg-emerald-soft">
+                <i data-lucide="check-circle-2" class="text-emerald"></i>
+              </div>
+              <div class="metric-data">
+                <span class="metric-label">Active (Live)</span>
+                <h3 class="metric-value text-emerald" id="val-active-partners">8</h3>
+              </div>
+            </div>
+            
+            <div class="metric-card" id="metric-pending">
+              <div class="metric-icon bg-amber-soft">
+                <i data-lucide="clock" class="text-amber"></i>
+              </div>
+              <div class="metric-data">
+                <span class="metric-label">Pending Approval</span>
+                <h3 class="metric-value text-amber" id="val-pending-partners">3</h3>
+              </div>
+            </div>
+            
+            <div class="metric-card" id="metric-draft">
+              <div class="metric-icon bg-gray-soft">
+                <i data-lucide="file-edit" class="text-muted"></i>
+              </div>
+              <div class="metric-data">
+                <span class="metric-label">Drafts</span>
+                <h3 class="metric-value text-muted" id="val-draft-partners">1</h3>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Activity & Partner List Table -->
+          <div class="dashboard-table-container card">
+            <div class="card-header">
+              <h3>Partner Pipeline</h3>
+              <div class="header-search">
+                <div class="search-input-wrapper">
+                  <i data-lucide="search" class="search-icon"></i>
+                  <input type="text" id="partner-search" placeholder="Search partners...">
+                </div>
+                <select id="stage-filter" class="form-select select-sm">
+                  <option value="all">All Stages</option>
+                  <option value="Draft">Draft</option>
+                  <option value="Pending Review">Pending Review</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Live">Live</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="partners-table">
+                <thead>
+                  <tr>
+                    <th>Partner Name</th>
+                    <th>Type</th>
+                    <th>Region</th>
+                    <th>Programs</th>
+                    <th>Stage</th>
+                    <th>Updated At</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="partners-table-body">
+                  <!-- Dynamic Rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ================= VIEW: PARTNERS ================= -->
+        <section id="view-partners" class="content-view">
+          <div class="card">
+            <div class="card-header">
+              <h3>All Registered Partners</h3>
+              <div class="header-search">
+                <div class="search-input-wrapper">
+                  <i data-lucide="search" class="search-icon"></i>
+                  <input type="text" id="all-partners-search" placeholder="Search partners...">
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="all-partners-table">
+                <thead>
+                  <tr>
+                    <th>Partner Name</th>
+                    <th>Type</th>
+                    <th>Region</th>
+                    <th>Contact</th>
+                    <th>Programs</th>
+                    <th>Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="all-partners-table-body">
+                  <!-- Dynamic Rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ================= VIEW: PROGRAMS ================= -->
+        <section id="view-programs" class="content-view">
+          <div class="section-desc">
+            <p>View and manage standardized program templates used during partner configuration. Templates define coverages, durations, and pricing structures.</p>
+          </div>
+          <div class="templates-grid" id="templates-container">
+            <!-- Dynamic templates cards -->
+          </div>
+        </section>
+        
+        <!-- ================= VIEW: SETTINGS ================= -->
+        <section id="view-settings" class="content-view">
+          <div class="settings-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>Demonstration Controls</h3>
+              </div>
+              <div class="card-body">
+                <div class="settings-group">
+                  <label class="form-label font-semibold">Simulation Role</label>
+                  <p class="text-muted text-sm margin-bottom-md">Switch roles to experience different permissions in the review and approval flow. Specialists configure partners; Managers approve them.</p>
+                  
+                  <div class="role-selector-cards">
+                    <div class="role-card active" id="role-card-specialist" onclick="app.setRole('Specialist')">
+                      <div class="role-card-header">
+                        <i data-lucide="user-cog" class="role-icon text-indigo"></i>
+                        <h4>Onboarding Specialist</h4>
+                      </div>
+                      <p class="text-xs text-muted">Can initiate, configure programs, integrate APIs, and transition requests to "Pending Review" stage.</p>
+                    </div>
+                    
+                    <div class="role-card" id="role-card-manager" onclick="app.setRole('Manager')">
+                      <div class="role-card-header">
+                        <i data-lucide="shield" class="role-icon text-emerald"></i>
+                        <h4>Operations Manager</h4>
+                      </div>
+                      <p class="text-xs text-muted">Has full read access, plus authorization to trigger "Approve & Push to Production" action and manage go-live.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="settings-group border-top">
+                  <label class="form-label font-semibold">Demo Data Management</label>
+                  <p class="text-muted text-sm margin-bottom-md">Restore default partners and settings to starting configurations.</p>
+                  <button class="btn btn-secondary text-danger" id="btn-reset-data">
+                    <i data-lucide="rotate-ccw"></i>
+                    <span>Reset Database to Defaults</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-header">
+                <h3>Global Configuration</h3>
+              </div>
+              <div class="card-body">
+                <div class="settings-group">
+                  <label class="form-label">Default Region</label>
+                  <select class="form-select" id="settings-default-region">
+                    <option value="IN">India (INR)</option>
+                    <option value="US">United States (USD)</option>
+                    <option value="EU">Europe (EUR)</option>
+                    <option value="AE">UAE (AED)</option>
+                  </select>
+                </div>
+                
+                <div class="settings-group">
+                  <label class="form-label">Sandbox API Endpoint Sandbox Gateway</label>
+                  <input type="text" class="form-control" value="https://sandbox.api.servify.tech/v1" readonly>
+                </div>
+                
+                <div class="settings-group">
+                  <label class="form-label">Production API Endpoint Gateway</label>
+                  <input type="text" class="form-control" value="https://api.servify.tech/v1" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ================= VIEW: PARTNER DETAILS ================= -->
+        <section id="view-partner-details" class="content-view">
+          <div class="detail-header-wrapper">
+            <button class="btn btn-icon btn-secondary" id="btn-back-to-list">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <div class="partner-meta-block">
+              <div class="partner-title-row">
+                <h2 id="detail-partner-name">Partner Name</h2>
+                <span class="badge" id="detail-partner-badge">Live</span>
+              </div>
+              <p class="text-muted text-sm" id="detail-partner-subtitle">Retailer • United States</p>
+            </div>
+            <div class="detail-actions" id="detail-actions-panel">
+              <!-- Context-based buttons (Edit, Approve, Go Live) -->
+            </div>
+          </div>
+          
+          <div class="detail-grid">
+            <div class="detail-col-main">
+              <!-- Summary Card: Basic Details -->
+              <div class="card margin-bottom-lg">
+                <div class="card-header">
+                  <h3>General Profile</h3>
+                </div>
+                <div class="card-body">
+                  <div class="info-grid">
+                    <div class="info-item">
+                      <span class="info-label">Partner Type</span>
+                      <span class="info-val" id="detail-type">OEM</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Country/Region</span>
+                      <span class="info-val" id="detail-country">United States</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Billing Currency</span>
+                      <span class="info-val" id="detail-currency">USD</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Primary Contact</span>
+                      <span class="info-val" id="detail-contact-name">Jane Doe</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Contact Email</span>
+                      <span class="info-val" id="detail-contact-email">jane@partner.com</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Contact Phone</span>
+                      <span class="info-val" id="detail-contact-phone">+1 555-0199</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Configured Protection Programs -->
+              <div class="card margin-bottom-lg">
+                <div class="card-header">
+                  <h3>Configured Protection Programs</h3>
+                </div>
+                <div class="card-body" id="detail-programs-list">
+                  <!-- Programs mapped here -->
+                </div>
+              </div>
+            </div>
+            
+            <div class="detail-col-sidebar">
+              <!-- Credentials Card -->
+              <div class="card margin-bottom-lg border-highlight">
+                <div class="card-header">
+                  <h3>API Credentials</h3>
+                  <i data-lucide="key" class="text-indigo"></i>
+                </div>
+                <div class="card-body">
+                  <div class="credential-group">
+                    <label class="cred-label">Sandbox Credentials</label>
+                    <div class="cred-box">
+                      <div class="cred-row">
+                        <span>Client ID:</span>
+                        <code id="detail-sandbox-id">sp_sb_4f923a...</code>
+                      </div>
+                      <div class="cred-row">
+                        <span>Client Secret:</span>
+                        <code id="detail-sandbox-secret">••••••••••••••••</code>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="credential-group margin-top-md" id="detail-prod-credentials-section">
+                    <label class="cred-label">Production Credentials</label>
+                    <div class="cred-box prod-box">
+                      <div class="cred-row" id="detail-prod-id-row">
+                        <span>Client ID:</span>
+                        <code id="detail-prod-id">sp_prod_8b31a...</code>
+                      </div>
+                      <div class="cred-row" id="detail-prod-secret-row">
+                        <span>Client Secret:</span>
+                        <code id="detail-prod-secret">••••••••••••••••</code>
+                      </div>
+                      <div id="detail-prod-pending-msg" class="text-muted text-xs italic">
+                        Credentials will be activated upon Manager approval.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="credential-group margin-top-md">
+                    <label class="cred-label">Webhook Endpoint</label>
+                    <div class="webhook-display-box">
+                      <code id="detail-webhook-url">https://api.partner.com/servify-webhook</code>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- History / Timeline -->
+              <div class="card">
+                <div class="card-header">
+                  <h3>Activity Log</h3>
+                </div>
+                <div class="card-body">
+                  <div class="timeline" id="detail-activity-log">
+                    <!-- Dynamic timeline logs -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ================= VIEW: WIZARD (ONBOARDING FLOW) ================= -->
+        <section id="view-wizard" class="content-view">
+          <div class="wizard-header">
+            <h2>Partner Onboarding Flow</h2>
+            <p class="text-muted">Complete the fields below to initiate a partner and configure protection plans.</p>
+            
+            <!-- Wizard Steps Visualizer -->
+            <div class="wizard-steps-nav">
+              <div class="wizard-step-node active" data-step="1">
+                <div class="node-circle">1</div>
+                <span class="node-label">Basic Info</span>
+              </div>
+              <div class="wizard-line"></div>
+              <div class="wizard-step-node" data-step="2">
+                <div class="node-circle">2</div>
+                <span class="node-label">Programs</span>
+              </div>
+              <div class="wizard-line"></div>
+              <div class="wizard-step-node" data-step="3">
+                <div class="node-circle">3</div>
+                <span class="node-label">Integration</span>
+              </div>
+              <div class="wizard-line"></div>
+              <div class="wizard-step-node" data-step="4">
+                <div class="node-circle">4</div>
+                <span class="node-label">Review</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="wizard-card card">
+            <form id="wizard-form" onsubmit="event.preventDefault();">
+              
+              <!-- WIZARD STEP 1: Basic Info -->
+              <div class="wizard-step-pane active" data-step="1">
+                <div class="pane-header">
+                  <h3>Step 1: Partner & Contact Details</h3>
+                  <p class="text-muted">Enter the foundational profile settings and contact directory of the partner.</p>
+                </div>
+                
+                <div class="form-grid">
+                  <div class="form-group col-span-6">
+                    <label class="form-label required">Partner Name</label>
+                    <input type="text" id="w-partner-name" class="form-control" placeholder="e.g. Samsung Retail US" required>
+                  </div>
+                  
+                  <div class="form-group col-span-3">
+                    <label class="form-label required">Partner Type</label>
+                    <select id="w-partner-type" class="form-select" required>
+                      <option value="">Select Type</option>
+                      <option value="OEM">OEM (Original Equipment Manufacturer)</option>
+                      <option value="Retailer">Retailer</option>
+                      <option value="Telecom">Telecom / Carrier</option>
+                      <option value="Other">Other Partner</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group col-span-3">
+                    <label class="form-label required">Country/Region</label>
+                    <input type="text" id="w-partner-country" class="form-control" placeholder="e.g. United States" required>
+                  </div>
+                  
+                  <div class="form-group col-span-6 border-top margin-top-md padding-top-md">
+                    <label class="form-label required">Primary Contact Name</label>
+                    <input type="text" id="w-contact-name" class="form-control" placeholder="e.g. Jane Doe" required>
+                  </div>
+                  
+                  <div class="form-group col-span-3 border-top margin-top-md padding-top-md">
+                    <label class="form-label required">Contact Email</label>
+                    <input type="email" id="w-contact-email" class="form-control" placeholder="jane@company.com" required>
+                  </div>
+                  
+                  <div class="form-group col-span-3 border-top margin-top-md padding-top-md">
+                    <label class="form-label required">Contact Phone</label>
+                    <input type="text" id="w-contact-phone" class="form-control" placeholder="e.g. +1 (555) 019-2834" required>
+                  </div>
+                  
+                  <div class="form-group col-span-6 border-top padding-top-md">
+                    <label class="form-label required">Billing Currency Preference</label>
+                    <select id="w-partner-currency" class="form-select" style="max-width: 250px;" required>
+                      <option value="USD">USD ($) - United States Dollar</option>
+                      <option value="INR">INR (₹) - Indian Rupee</option>
+                      <option value="EUR">EUR (€) - Euro</option>
+                      <option value="AED">AED (د.إ) - UAE Dirham</option>
+                      <option value="GBP">GBP (£) - British Pound</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- WIZARD STEP 2: Program Configuration -->
+              <div class="wizard-step-pane" data-step="2">
+                <div class="pane-header">
+                  <h3>Step 2: Protection Program Templates</h3>
+                  <p class="text-muted">Select standard programs the partner is authorized to sell and specify local parameters.</p>
+                </div>
+                
+                <div class="program-selection-container">
+                  <div class="template-selector-list" id="w-template-list">
+                    <!-- Standard programs populated by JS -->
+                  </div>
+                  
+                  <div class="template-config-panel hidden" id="w-template-config">
+                    <h4 class="config-title">Configure Program: <span id="w-active-template-name">Program</span></h4>
+                    
+                    <div class="form-grid margin-top-md">
+                      <div class="form-group col-span-6">
+                        <label class="form-label required">Duration (Months)</label>
+                        <select id="w-program-duration" class="form-select">
+                          <option value="12">12 Months (1 Year)</option>
+                          <option value="24" selected>24 Months (2 Years)</option>
+                          <option value="36">36 Months (3 Years)</option>
+                        </select>
+                      </div>
+                      
+                      <div class="form-group col-span-6">
+                        <label class="form-label required">Deductible / Excess Fee</label>
+                        <div class="input-prefix-wrapper">
+                          <span class="input-prefix" id="w-currency-symbol">$</span>
+                          <input type="number" id="w-program-deductible" class="form-control" value="49" min="0" placeholder="0">
+                        </div>
+                        <span class="input-hint text-xs text-muted">Fixed claim co-pay amount paid by end customer.</span>
+                      </div>
+                      
+                      <div class="form-group col-span-6">
+                        <label class="form-label required">Pricing Model Type</label>
+                        <div class="radio-group">
+                          <label class="radio-label">
+                            <input type="radio" name="w-program-pricing-type" value="flat" checked>
+                            <span class="radio-custom"></span>
+                            <span>Flat Rate</span>
+                          </label>
+                          <label class="radio-label">
+                            <input type="radio" name="w-program-pricing-type" value="percentage">
+                            <span class="radio-custom"></span>
+                            <span>Percentage of Device Value</span>
+                          </label>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group col-span-6">
+                        <label class="form-label required">Pricing Value</label>
+                        <div class="input-prefix-wrapper">
+                          <span class="input-prefix" id="w-pricing-value-prefix">$</span>
+                          <input type="number" id="w-program-pricing-val" class="form-control" value="99" min="0" step="any">
+                        </div>
+                        <span class="input-hint text-xs text-muted" id="w-pricing-hint">Base premium amount.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- WIZARD STEP 3: Technical Integration -->
+              <div class="wizard-step-pane" data-step="3">
+                <div class="pane-header">
+                  <h3>Step 3: Sandbox Environment & Webhooks</h3>
+                  <p class="text-muted">Provision initial developer credentials to allow testing against Servify's Sandbox Gateway.</p>
+                </div>
+                
+                <div class="integration-setup-box">
+                  <div class="sandbox-provision-card">
+                    <div class="card-icon-banner">
+                      <i data-lucide="key-round" class="text-indigo text-lg"></i>
+                    </div>
+                    <h4>Sandbox API Credentials</h4>
+                    <p class="text-muted text-sm text-center margin-bottom-md" style="max-width: 480px;">
+                      Generate immediate Sandbox keys for the partner's developers to integrate APIs, test token generation, and execute sample claim notifications.
+                    </p>
+                    
+                    <button class="btn btn-secondary" id="btn-wizard-gen-sandbox">
+                      <i data-lucide="zap"></i>
+                      <span>Generate Sandbox Credentials</span>
+                    </button>
+                    
+                    <div class="credentials-display-wrapper hidden" id="w-sandbox-keys-display">
+                      <div class="display-row">
+                        <span class="key-lbl">Client ID:</span>
+                        <code id="w-sandbox-client-id">sp_sb_xxxxx</code>
+                        <button class="btn btn-icon btn-xs" type="button" onclick="app.copyToClipboard('w-sandbox-client-id')" title="Copy Client ID">
+                          <i data-lucide="copy" class="size-xs"></i>
+                        </button>
+                      </div>
+                      <div class="display-row margin-top-xs">
+                        <span class="key-lbl">Client Secret:</span>
+                        <code id="w-sandbox-client-secret">sp_sec_sb_xxxxx</code>
+                        <button class="btn btn-icon btn-xs" type="button" onclick="app.copyToClipboard('w-sandbox-client-secret')" title="Copy Client Secret">
+                          <i data-lucide="copy" class="size-xs"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="webhook-config-card card margin-top-lg">
+                    <div class="card-header">
+                      <h3>Webhook Setup</h3>
+                      <i data-lucide="webhook" class="text-indigo"></i>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label class="form-label">Partner Webhook URL (Optional)</label>
+                        <p class="text-muted text-xs margin-bottom-xs">Servify will POST real-time updates for claim status changes to this URL in Sandbox.</p>
+                        <input type="url" id="w-webhook-url" class="form-control" placeholder="https://api.partner.com/v1/servify-webhook-receiver" style="font-family: monospace;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- WIZARD STEP 4: Review & Submit -->
+              <div class="wizard-step-pane" data-step="4">
+                <div class="pane-header">
+                  <h3>Step 4: Verification Summary</h3>
+                  <p class="text-muted">Review the compiled partner details, contact list, and program policies before submitting.</p>
+                </div>
+                
+                <div class="summary-report-card">
+                  <div class="summary-section">
+                    <h4 class="summary-section-title">General Info</h4>
+                    <div class="info-grid">
+                      <div class="info-item">
+                        <span class="info-label">Partner Name</span>
+                        <span class="info-val" id="summary-partner-name">-</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Partner Type</span>
+                        <span class="info-val" id="summary-partner-type">-</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Country/Region</span>
+                        <span class="info-val" id="summary-partner-country">-</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Currency</span>
+                        <span class="info-val" id="summary-partner-currency">-</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="summary-section border-top">
+                    <h4 class="summary-section-title">Contact Information</h4>
+                    <div class="info-grid">
+                      <div class="info-item">
+                        <span class="info-label">Contact Name</span>
+                        <span class="info-val" id="summary-contact-name">-</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Email Address</span>
+                        <span class="info-val" id="summary-contact-email">-</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Phone Number</span>
+                        <span class="info-val" id="summary-contact-phone">-</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="summary-section border-top">
+                    <h4 class="summary-section-title">Protection Program Details</h4>
+                    <div class="summary-program-box" id="summary-program-box">
+                      <!-- Populated by JS -->
+                    </div>
+                  </div>
+                  
+                  <div class="summary-section border-top">
+                    <h4 class="summary-section-title">Technical Integration</h4>
+                    <div class="info-grid">
+                      <div class="info-item col-span-6">
+                        <span class="info-label">Webhook URL</span>
+                        <span class="info-val" id="summary-webhook-url">Not configured</span>
+                      </div>
+                      <div class="info-item col-span-6">
+                        <span class="info-label">Sandbox Credentials Status</span>
+                        <span class="info-val text-emerald" id="summary-credentials-status">Generated</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Wizard Buttons Footer -->
+              <div class="wizard-footer">
+                <button type="button" class="btn btn-secondary" id="btn-wizard-prev" disabled>
+                  <i data-lucide="arrow-left"></i>
+                  <span>Previous</span>
+                </button>
+                
+                <div class="footer-right">
+                  <button type="button" class="btn btn-secondary text-danger margin-right-sm" id="btn-wizard-cancel">
+                    Cancel Draft
+                  </button>
+                  <button type="button" class="btn btn-primary" id="btn-wizard-next">
+                    <span>Next</span>
+                    <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+        
+      </div>
+    </main>
+  </div>
+  
+  <!-- System notifications -->
+  <div class="notification-container" id="toast-container"></div>
+  
+  <script src="app.js"></script>
+</body>
+</html>

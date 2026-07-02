@@ -3,7 +3,7 @@
 A modern, high-fidelity Partner Onboarding Portal MVP built for Servify Operations and Partner Success teams. It simplifies the configuration of partner details, device protection programs, and developer API credentials into a clean, wizard-driven web workflow.
 
 ## 🔗 Live Demo URLs
-- **Production URL (Netlify)**: [http://astonishing-buttercream-bc2259.netlify.app](http://astonishing-buttercream-bc2259.netlify.app)
+- **Production URL (Netlify)**: [http://resplendent-cascaron-a7a442.netlify.app](http://resplendent-cascaron-a7a442.netlify.app)
 - **Official Host (GitHub Pages)**: [https://aryn-ankit.github.io/partner-onboarding-portal/](https://aryn-ankit.github.io/partner-onboarding-portal/)
 - **Local Proxy (Localtunnel)**: [https://slimy-planes-occur.loca.lt](https://slimy-planes-occur.loca.lt)
 
